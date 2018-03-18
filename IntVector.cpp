@@ -27,7 +27,9 @@ public:
   virtual void push_back(int value) {
      check_invariants();
 
-    // TASK 1 - YOUR CODE HERE
+    if (num_elts == capacity) {
+          grow();
+      }
 
     data[num_elts++] = value;
 
@@ -94,9 +96,14 @@ private:
   //            5. sets data to point to the new array
   void grow() {
     check_invariants();
-
-    // TASK 1 - YOUR CODE HERE
-
+      int * ptr = new int[capacity * 2];
+      for (int i = 0; i < num_elts; ++i) {
+          ptr[i] = data[i];
+      }
+      delete[] data;
+      data = ptr;
+      capacity = capacity * 2;
+      
     check_invariants();
     cout << "grow() was called. Capacity is now " << capacity << "." << endl;
   }
